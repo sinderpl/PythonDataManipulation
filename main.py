@@ -8,21 +8,26 @@ Created on Wed Oct 28 20:16:31 2020
 filenames = ("dataSet/securities.csv",
              "dataSet/fundamentals.csv",
              "dataSet/prices.csv",
-             "dataSet/prices-split-adjusted.csv")
+             # "dataSet/prices-split-adjusted.csv"
+             )
 
-try:
-    with open(filenames[1], encoding='cp1252') as securities:
-        print("file loaded")
-        
-        
-        #Get column names
-        # print(securities.readline().split(","))
-        column_names = (securities.readline())[1:]
-        for column in column_names.split(","):
-            print(column)
-        
-        #Print all
-        # for security in securities:
-            # print(security)
-except FileNotFoundError:
-    print("File could not be found")
+def load_file(filename):
+    try:
+        with open(filename, encoding='cp1252') as file_content:
+            print("file loaded", filename )
+            
+            #Get column names
+            column_names = (file_content.readline()) #[1:] #Remove initial id column
+            for column in column_names.split(","):
+                print(column)
+    except FileNotFoundError:
+        print("File could not be found")
+    
+
+
+for filename in filenames:
+    load_file(filename)
+
+
+
+    
