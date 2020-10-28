@@ -5,7 +5,9 @@ Created on Wed Oct 28 20:16:31 2020
 @author: alann
 """
 
-with open("dataSet/securities.csv", encoding='cp1252') as securities:
-    print(securities)
-    for security in securities:
-        print(security)
+try:
+    with open("dataSet/securitiess.csv", encoding='cp1252') as securities:
+        for security in securities:
+            print(security)
+except FileNotFoundError:
+    print("File could not be found")
