@@ -17,7 +17,7 @@ try:
         
         #Get column names
         # print(securities.readline().split(","))
-        column_names = (securities.readline())
+        column_names = (securities.readline())[1:]
         for column in column_names.split(","):
             print(column)
         
