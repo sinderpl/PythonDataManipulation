@@ -22,10 +22,10 @@ def load_file(filename):
             #Get column names
             column_names = (file_content.readline()) #[1:] #Remove initial id column
             for column in column_names.split(","):
-                columns.append(column)
+                columns.append(column.strip("\n"))
             #Load rows into memory
             for line in file_content.readlines():
-                rows.append(line)
+                rows.append(line.strip("\n"))
     except FileNotFoundError:
         print("File could not be found")
 
@@ -36,10 +36,15 @@ print("List of available actions: ")
 print("1.Display available columns \n")
     # user_choice = input("")
     # if user_choice == 1:
-    
-    
 for filename in filenames:
     load_file(filename)
+
+# for column in columns:
+print(columns)
+
+for row in rows[1:2]:
+    print(row.split(","))
+    print(len(row.split(","))) # City and state are being split into two because delimiter is ,
 
 
 
