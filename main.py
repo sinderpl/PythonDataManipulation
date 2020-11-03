@@ -1,19 +1,34 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Oct 28 20:16:31 2020
-
-@author: alann
+@author: A00209408
 """
+import math
 
-filenames = ("dataSet/securities.csv",
-             # "dataSet/fundamentals.csv",
-             # "dataSet/prices.csv",
-             # "dataSet/prices-split-adjusted.csv"
-             )
-
-rows = list()
-columns = list()
+# Program loop
 keep_running = True
+
+#Data sets
+filenames = ("dataSets/updatedDataSet/securities.csv",
+              "dataSets/updatedDataSet/fundamentals.csv",
+              "dataSets/updatedDataSet/prices.csv",
+              "dataSets/updatedDataSet/prices-split-adjusted.csv"
+             )
+original_data_set = 
+columns_securities = list()
+rows_securities = list()
+user_input = -1
+
+
+
+print("Welcome to the stock analysis program")
+while keep_running:
+    print("List of available actions: ")
+    print("1.Display available columns \n")
+    input("Please choose an action or choose 0 to cancel")
+    
+    if user_input == 0:
+        keep_running == False
+        break
 
 def load_file(filename):
     try:
@@ -30,10 +45,7 @@ def load_file(filename):
         print("File could not be found")
 
 
-print("Welcome to the stock analysis program")
-# while keep_running:
-print("List of available actions: ")
-print("1.Display available columns \n")
+
     # user_choice = input("")
     # if user_choice == 1:
 for filename in filenames:
@@ -42,10 +54,11 @@ for filename in filenames:
 # for column in columns:
 print(columns)
 
-for row in rows[1:2]:
+for row in rows[1:2]: #List of lists for this
     print(row.split(","))
     print(len(row.split(","))) # City and state are being split into two because delimiter is ,
 
 
 
     
+
