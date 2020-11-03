@@ -52,17 +52,21 @@ fundamentals_columns_needed = (
 
 fundamentals_original_columns_indexing = list()
 fundamentals_column_names = list()
+
+print("Pre-processing files, please wait...\n \n")
+
 # Rewrite the files with updates where necessary:
     
     #Securities.csv
 try:
     with open(original_filenames[0], encoding='cp1252') as file_content:
-        print("Securities file opened", original_filenames[0] )
-        with open(updated_filenames[0], "w") as  new_file:
+        with open(updated_filenames[0], "x") as  new_file:
             new_file.write(file_content.read())
 except FileNotFoundError:
     print("File could not be found", original_filenames[0])
-    
+except FileExistsError:
+    pass
+    # this is fine, simply means the file is created
     
     #Fundamentals.csv
     """
@@ -71,11 +75,10 @@ except FileNotFoundError:
     """
 try:
     with open(original_filenames[1], encoding='cp1252') as file_content:
-        print("Fundamentals file opened", original_filenames[1] )
         # We need to filter out the columns we dont want to but we also need to do this
         # for each row record
         columns = file_content.readline().split(",")
-        with open(updated_filenames[1], "w") as  new_file:
+        with open(updated_filenames[1], "x") as  new_file:
             for index in range(len(columns)):
                 if columns[index] in fundamentals_columns_needed:
                     # Grab the original indexing and column names we want IF they appear in the csv
@@ -93,17 +96,20 @@ try:
                 for index in range(len(row)):
                     if index in fundamentals_original_columns_indexing:
                         line_content += (row[index]+",")
-                        # line_content += (fundamentals_column_names[index]+",")
                 new_file.write(line_content[:len(line_content)-1]) # Remove final comma
 except FileNotFoundError:
     print("File could not be found", original_filenames[1])
-    
+except FileExistsError:
+   pass
+   # this is fine, simply means the file is created   
     
     #Prices.csv
 try:
     with open(original_filenames[2], encoding='cp1252') as file_content:
-        print("Prices file opened", original_filenames[2] )
-        with open(updated_filenames[2], "w") as  new_file:
+        with open(updated_filenames[2], "x") as  new_file:
             new_file.write(file_content.read())
 except FileNotFoundError:
     print("File could not be found", original_filenames[2])
+except FileExistsError:
+    pass
+    # this is fine, simply means the file is created
