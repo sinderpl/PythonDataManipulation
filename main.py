@@ -1,29 +1,46 @@
 # -*- coding: utf-8 -*-
 """
+    A script that allows the user to analyse stock market data
 @author: A00209408
 """
 import preProcessing
-
 import math
 
 # Program loop
 keep_running = True
+user_input = -1
 
 #Data sets
 file_path = "dataSets/updatedDataSet/"
-file_extensions = ".csv"
-filenames = ("dataSets/updatedDataSet/securities.csv",
-              "dataSets/updatedDataSet/fundamentals.csv",
-              "dataSets/updatedDataSet/prices.csv",
-             )
-file+data = (  # filename   #Columns #Rows 
+file_extension = ".csv"
+file_data = (# filename[0] #Columns[1] #Rows[2] 
               ("securities", list(), list()),
               ("fundamentals", list(), list()),
               ("prices", list(), list())
             )
-user_input = -1
 
+# Load the data sets into memory
+for file_index in range(len(file_data)):
+    try:
+        filename = file_path + file_data[file_index][0] + file_extension
+        with open(filename, encoding='cp1252') as file_content:
+            #Parse in the columns
+            for column_name in file_content.readline().split(","):
+                file_data[file_index][1].append(column_name.rstrip())
+            #Parse in the rows
+            for row in file_content.readlines():
+                file_data[file_index][2].append(row)
+    except FileNotFoundError:
+        print("File could not be found", filename)
 
+# Simple user based search
+stocks_found = set()
+for row in file_data[1][2]:
+    stock_ticker = row.split(",")[0]
+    if "BA" in stock_ticker:
+        stocks_found.add(stock_ticker)
+print(stocks_found)
+    
 print("Welcome to the stock analysis program")
 while keep_running:
     print("List of available actions: ")
@@ -35,9 +52,10 @@ while keep_running:
         break
     elif user_input == 1:
         print("Select file to display available columnns:")
-        for i in range(len(user_friendly_filenames)):
-            print(str(i)+".",user_friendly_filenames[i])
-        input("Please select filename number to display columns: ")
+        for i in range(len(file_data)):
+            print(str(i)+".",file_data[i][0])
+        input("Please select filename index to display columns: ")
+        
         
     
         
