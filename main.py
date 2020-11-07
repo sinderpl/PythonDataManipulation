@@ -10,31 +10,37 @@ import math
 keep_running = True
 
 #Data sets
+file_path = "dataSets/updatedDataSet/"
+file_extensions = ".csv"
 filenames = ("dataSets/updatedDataSet/securities.csv",
               "dataSets/updatedDataSet/fundamentals.csv",
               "dataSets/updatedDataSet/prices.csv",
              )
-columns_securities = list()
-rows_securities = list()
-
-columns_fundamentals = list()
-rows_fundamentals = list()
-
-columns_prices = list()
-rows_prices = list()
+file+data = (  # filename   #Columns #Rows 
+              ("securities", list(), list()),
+              ("fundamentals", list(), list()),
+              ("prices", list(), list())
+            )
 user_input = -1
-
 
 
 print("Welcome to the stock analysis program")
 while keep_running:
     print("List of available actions: ")
-    print("\t1.Display available columns \n")
-    user_input = int(input("Please choose an action or choose 0 to cancel"))
+    print("\t1.File viewer \n")
+    user_input = int(input("Please choose an action or choose 0 to cancel: "))
     
     if user_input == 0:
         keep_running == False
         break
+    elif user_input == 1:
+        print("Select file to display available columnns:")
+        for i in range(len(user_friendly_filenames)):
+            print(str(i)+".",user_friendly_filenames[i])
+        input("Please select filename number to display columns: ")
+        
+    
+        
 
 # def load_file(filename):
 #     try:
