@@ -82,6 +82,9 @@ while keep_running:
                     print("error")
                     pass # if we are missing a value we skip it
             #Print out statistics
+                # Min and Max
+            print("Minimnum value: ", f'{float(min(stock_close_values)):.2f} $')
+            print("Maximum value: ",  f'{float(max(stock_close_values)):.2f} $')
         else:
             print("The stock does not exist, please try again")
     elif user_input == 2: # View any columns in the data
