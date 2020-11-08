@@ -41,17 +41,50 @@ while keep_running:
     user_input = -1
     print("List of available actions: ")
     print("\t1.View stock information \n")
-    print("\t2.View sector information\n")
-    print("\t5.File viewer \n")
+    print("\t2.File viewer \n")
     try:
         user_input = int(input("Please choose an action or choose -1 to cancel: \n"))
     except ValueError:
         print("Invalid input, please try again \nd")
+       
         
+    # Main program loop
     if user_input == -1:
         keep_running == False
         break
-    elif user_input == 5: # View any columns in the data
+    elif user_input == 1: # View stock information
+        print("Choose a ticker symbol to display company info")
+        tickers = list()
+        for row in range(len(file_data[0][2])):
+            tickers.append(file_data[0][2][row].split(",")[0].replace('"',''))
+        ticker_output = ""
+        for row in range(len(tickers)):
+            ticker_output += "\t|" + tickers[row] + "|"
+            if row % 8 == 0:
+                ticker_output += "\n"
+        print(ticker_output) 
+        stock_choice = (input("\nPlease enter the stock you are interested in: \n")).upper()
+        if stock_choice in tickers:
+            print("Stock Found, displaying statistical data on the daily closing prices: ")
+            median = 0.0
+            mean = 0.0
+            mode = 0.0
+            standard_deviation = 0.0
+            stock_close_values = list()
+            stock_volumes = list()
+            for row in file_data[2][2]:
+                try:
+                   date, symbol, open_col, close, low, high, volume =  row.split(",")
+                   if symbol == stock_choice and close and volume: # We dont want null values in either field
+                       stock_close_values.append(close)
+                       stock_volumes.append(volume)
+                except ValueError:
+                    print("error")
+                    pass # if we are missing a value we skip it
+            #Print out statistics
+        else:
+            print("The stock does not exist, please try again")
+    elif user_input == 2: # View any columns in the data
         print("Select file to display available columnns:")
         for file_index in range(len(file_data)):
             print("\t",str(file_index)+".",file_data[file_index][0])
