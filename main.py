@@ -67,7 +67,7 @@ while keep_running:
                     if column_choice in range(len(file_data[file_choice][1])):
                         print("Viewing rows for column", file_data[file_choice][1][column_choice], ":\n")
                         for row in file_data[file_choice][2]:
-                          row_corresponding_column = row.sp1lit(",")[column_choice]
+                          row_corresponding_column = row.split(",")[column_choice]
                           #No need to display empty columns
                           if row_corresponding_column:
                               print(row_corresponding_column)
