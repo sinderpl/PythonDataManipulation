@@ -13,6 +13,9 @@ user_input = -1
 #Data sets
 file_path = "dataSets/updatedDataSet/"
 file_extension = ".csv"
+"""I realised later we can use sets, I thought it would be a more 
+   interesting challenge to use multi dimmensional arrays.
+"""
 file_data = (# filename[0] #Columns[1] #Rows[2] 
               ("securities", list(), list()),
               ("fundamentals", list(), list()),
@@ -33,62 +36,63 @@ for file_index in range(len(file_data)):
     except FileNotFoundError:
         print("File could not be found", filename)
 
-# Simple user based search
-stocks_found = set()
-for row in file_data[1][2]:
-    stock_ticker = row.split(",")[0]
-    if "BA" in stock_ticker:
-        stocks_found.add(stock_ticker)
-print(stocks_found)
-    
 print("Welcome to the stock analysis program")
 while keep_running:
+    user_input = -1
     print("List of available actions: ")
-    print("\t1.File viewer \n")
-    user_input = int(input("Please choose an action or choose 0 to cancel: "))
-    
-    if user_input == 0:
+    print("\t1.View stock information \n")
+    print("\t2.View sector information\n")
+    print("\t5.File viewer \n")
+    try:
+        user_input = int(input("Please choose an action or choose -1 to cancel: \n"))
+    except ValueError:
+        print("Invalid input, please try again \nd")
+        
+    if user_input == -1:
         keep_running == False
         break
-    elif user_input == 1:
+    elif user_input == 5: # View any columns in the data
         print("Select file to display available columnns:")
-        for i in range(len(file_data)):
-            print(str(i)+".",file_data[i][0])
-        input("Please select filename index to display columns: ")
-        
-        
+        for file_index in range(len(file_data)):
+            print("\t",str(file_index)+".",file_data[file_index][0])
+            print("\t\tTotal Available columns: ", len(file_data[file_index][1]))
+        try:
+            file_choice = int(input("Please select filename index to display columns: \n"))
+            if file_choice in range(len(file_data)):
+                print("Columns in file: \n")
+                for column_index in range(len(file_data[file_choice][1])):
+                    print("\t",str(column_index)+".",file_data[file_choice][1][column_index])
+                try:
+                    column_choice = int(input("Please select a column to display data"))
+                    if column_choice in range(len(file_data[file_choice][1])):
+                        print("Viewing rows for column", file_data[file_choice][1][column_choice], ":\n")
+                        for row in file_data[file_choice][2]:
+                          row_corresponding_column = row.sp1lit(",")[column_choice]
+                          #No need to display empty columns
+                          if row_corresponding_column:
+                              print(row_corresponding_column)
+                    else:
+                        print("Invalid column selected")
+                except ValueError:
+                    print("Invalid column selected")
+            else:
+                print("Invalid file choice")
+        except ValueError:
+            print("Invalid input, please try again \n")
     
         
 
-# def load_file(filename):
-#     try:
-#         with open(filename, encoding='cp1252') as file_content:
-#             print("file loaded", filename )
-#             #Get column names
-#             column_names = (file_content.readline()) #[1:] #Remove initial id column
-#             for column in column_names.split(","):
-#                 columns.append(column.strip("\n"))
-#             #Load rows into memory
-#             for line in file_content.readlines():
-#                 rows.append(line.strip("\n"))
-#     except FileNotFoundError:
-#         print("File could not be found")
 
 
 
-#     # user_choice = input("")
-#     # if user_choice == 1:
-# for filename in filenames:
-#     load_file(filename)
-
-# # for column in columns:
-# print(columns)
-
-# for row in rows[1:2]: #List of lists for this
-#     print(row.split(","))
-#     print(len(row.split(","))) # City and state are being split into two because delimiter is ,
-
-
+# Simple  search code for later
+# stocks_found = set()
+# for row in file_data[1][2]:
+#     stock_ticker = row.split(",")[0]
+#     if "BA" in stock_ticker:
+#         stocks_found.add(stock_ticker)
+# print(stocks_found)
+    
 
     
 
