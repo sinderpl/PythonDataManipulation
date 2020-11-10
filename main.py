@@ -95,6 +95,7 @@ while keep_running:
             total = 0.0    
             count = 0
             mean_closing_price = 0.0
+            mean_closing_price = 0.0
             for stock_value in stock_close_values:
                 total += stock_value
                 count += 1
@@ -106,12 +107,14 @@ while keep_running:
                 
                 # Median
             length = len(stock_close_values)
+            median = 0.0
             if length > 0 and length % 2 == 0:
                 median_upper  = stock_close_values[math.ceil(length / 2)]
                 median_lower = stock_close_values[math.ceil(length / 2) - 1]
                 print("Median is:", f'{(median_upper + median_lower)/2:.2f} $')
             elif length > 0 and not length % 2 == 0:
-                print("Median is : ", f'{stock_close_values[math.ceil(length / 2)]:.2f} $')
+                median = f'{stock_close_values[math.ceil(length / 2)]:.2f} $'
+                print("Median is : ", median)
                 
                 # Mode
             mode = float(f'{max(set(stock_close_values), key=stock_close_values.count):.2f}')
@@ -163,13 +166,20 @@ while keep_running:
             correlation = float(f'{total_closing_price_multiply_volume / math.sqrt(total_closing_price_square * total_volume_square):.2f}')
             print("The Correlation coefficient value is: ", correlation)
             
-        # Save values to a text file
-        # try:
-        #     with open(file_path++, "x") as  new_file:
-        #         new_file.write(file_content.read())
-        # except FileExistsError:
-        #     pass
-            # this is fine, simply means the file is created
+            # Save values to a text file
+            try:
+                file_name = file_path_statistics +stock_choice+".txt"
+                with open(file_name, "w") as  new_file:
+                    new_file.write("Minimum value: " + str(min(stock_close_values)) +"\n")
+                    new_file.write("Maximum value: " + str(max(stock_close_values)) +"\n")
+                    new_file.write("Mean: "+ str(mean_closing_price) + "\n")
+                    new_file.write("Median: "+ str(median) + "\n")
+                    new_file.write("Mode: " + str(mode) + "\n")
+                    new_file.write("Standard Deviation: "+ str(standard_deviation) +"\n")
+                    new_file.write("Correlation coefficient: "+ str(correlation) + "\n")
+                print("The data has been written to:", file_name)
+            except FileExistsError:
+                pass
         else:
             print("The stock does not exist, please try again")
     elif user_input == 2: # View any columns in the data
