@@ -12,6 +12,7 @@ user_input = -1
 
 #Data sets
 file_path = "dataSets/updatedDataSet/"
+file_path_statistics = "dataSets/statisticalCalculations/"
 file_extension = ".csv"
 """I realised later we can use sets, I thought it would be a more 
    interesting challenge to use multi dimmensional arrays.
@@ -38,7 +39,7 @@ for file_index in range(len(file_data)):
 
 print("Welcome to the stock analysis program\n")
 while keep_running:
-    user_input = -1
+    user_input = -2
     print("\nList of available actions: ")
     print("\t1.View stock information \n")
     print("\t2.File viewer \n")
@@ -68,15 +69,22 @@ while keep_running:
             print("Stock Found, displaying statistical data on the daily closing prices: ")
             stock_close_values = list()
             stock_volumes = list()
+            stock_volumes_temp = list()
             for row in file_data[2][2]:
                 try:
-                   date, symbol, open_col, close, low, high, volume =  row.split(",")
-                   if symbol == stock_choice and close and volume: # We dont want null values in either field
-                       stock_close_values.append(float(f'{float((close)):.2f}'))
-                       stock_volumes.append(volume)
+                    date, symbol, open_col, close, low, high, volume =  row.split(",")
+                    if symbol == stock_choice and close and volume: # We dont want null values in either field
+                        stock_close_values.append(float(f'{float((close)):.2f}'))
+                        stock_volumes_temp.append(volume.rstrip())
                 except ValueError:
                     pass # if we are missing a value we skip it
             #Print out statistics
+            stock_values_unsorted = stock_close_values.copy()
+            for volume in stock_volumes_temp:
+                try:
+                    stock_volumes.append(int(volume))
+                except ValueError:
+                    stock_volumes.append(float(volume))
             stock_close_values.sort()
             
                 # Min and Max
@@ -86,13 +94,13 @@ while keep_running:
                 # Mean
             total = 0.0    
             count = 0
-            mean = 0.0
+            mean_closing_price = 0.0
             for stock_value in stock_close_values:
                 total += stock_value
                 count += 1
             try:
-                mean = float(f'{(total / count):.2f}')
-                print("Mean is:", mean ,'$')
+                mean_closing_price = float(f'{(total / count):.2f}')
+                print("Mean is:", mean_closing_price ,'$')
             except ZeroDivisionError:
                 print("The mean could not be calculated as the data source is empty")
                 
@@ -110,17 +118,58 @@ while keep_running:
             print("Mode is:", mode, "$")
             
                 # Standard deviation
-            if mean > 0.0:
+            if mean_closing_price > 0.0:
                 standard_deviation_total = 0.0    
                 standard_deviation_count = 0
                 standard_deviation = 0.0
                 for stock_value in stock_close_values:
-                    standard_deviation_total += (stock_value - mean)**2
+                    standard_deviation_total += (stock_value - mean_closing_price)**2
                     standard_deviation_count += 1
                 print("Standard deviation:",f'{math.sqrt(standard_deviation_total/standard_deviation_count):.2f} $')
             else:
                 print("No Mean available so can't calculate standard deviation")
-                #Correlation
+                
+                #Pearson's Correlation coefficient
+                
+                # Mean of volume
+            mean_volume = 0.0
+            total_volume = 0.0
+            count_volume = 0.0
+            for volume in stock_volumes:
+                total_volume += volume
+                count_volume += 1
+            mean_volume = float(f'{(total_volume / count_volume):.2f}')
+            
+            # Correlation calculation
+            total_closing_price_multiply_volume = 0.0
+            total_closing_price_square = 0.0
+            total_volume_square = 0.0
+            for index in range(len(stock_values_unsorted)):
+                # Calculations
+                #  A
+                close_price_minus_mean = stock_values_unsorted[index] - mean_closing_price
+                # B
+                volume_minus_mean = stock_volumes[index] - mean_volume
+                # A x B
+                close_multiply_volume = close_price_minus_mean * volume_minus_mean
+                #  A^2
+                close_price_minus_mean_square = close_price_minus_mean ** 2
+                #  B^2
+                volume_minus_mean_square = volume_minus_mean ** 2 
+                # Totals
+                total_closing_price_multiply_volume += close_multiply_volume
+                total_closing_price_square += close_price_minus_mean_square
+                total_volume_square += volume_minus_mean_square
+            correlation = float(f'{total_closing_price_multiply_volume / math.sqrt(total_closing_price_square * total_volume_square):.2f}')
+            print("The Correlation coefficient value is: ", correlation)
+            
+        # Save values to a text file
+        # try:
+        #     with open(file_path++, "x") as  new_file:
+        #         new_file.write(file_content.read())
+        # except FileExistsError:
+        #     pass
+            # this is fine, simply means the file is created
         else:
             print("The stock does not exist, please try again")
     elif user_input == 2: # View any columns in the data
