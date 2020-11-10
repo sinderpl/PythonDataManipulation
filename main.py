@@ -36,10 +36,10 @@ for file_index in range(len(file_data)):
     except FileNotFoundError:
         print("File could not be found", filename)
 
-print("Welcome to the stock analysis program")
+print("Welcome to the stock analysis program\n")
 while keep_running:
     user_input = -1
-    print("List of available actions: ")
+    print("\nList of available actions: ")
     print("\t1.View stock information \n")
     print("\t2.File viewer \n")
     try:
@@ -66,25 +66,61 @@ while keep_running:
         stock_choice = (input("\nPlease enter the stock you are interested in: \n")).upper()
         if stock_choice in tickers:
             print("Stock Found, displaying statistical data on the daily closing prices: ")
-            median = 0.0
-            mean = 0.0
-            mode = 0.0
-            standard_deviation = 0.0
             stock_close_values = list()
             stock_volumes = list()
             for row in file_data[2][2]:
                 try:
                    date, symbol, open_col, close, low, high, volume =  row.split(",")
                    if symbol == stock_choice and close and volume: # We dont want null values in either field
-                       stock_close_values.append(close)
+                       stock_close_values.append(float(f'{float((close)):.2f}'))
                        stock_volumes.append(volume)
                 except ValueError:
-                    print("error")
                     pass # if we are missing a value we skip it
             #Print out statistics
+            stock_close_values.sort()
+            
                 # Min and Max
-            print("Minimnum value: ", f'{float(min(stock_close_values)):.2f} $')
-            print("Maximum value: ",  f'{float(max(stock_close_values)):.2f} $')
+            print("Minimnum value: ", min(stock_close_values), "$")
+            print("Maximum value: ",  max(stock_close_values), "$")
+            
+                # Mean
+            total = 0.0    
+            count = 0
+            mean = 0.0
+            for stock_value in stock_close_values:
+                total += stock_value
+                count += 1
+            try:
+                mean = float(f'{(total / count):.2f}')
+                print("Mean is:", mean ,'$')
+            except ZeroDivisionError:
+                print("The mean could not be calculated as the data source is empty")
+                
+                # Median
+            length = len(stock_close_values)
+            if length > 0 and length % 2 == 0:
+                median_upper  = stock_close_values[math.ceil(length / 2)]
+                median_lower = stock_close_values[math.ceil(length / 2) - 1]
+                print("Median is:", f'{(median_upper + median_lower)/2:.2f} $')
+            elif length > 0 and not length % 2 == 0:
+                print("Median is : ", f'{stock_close_values[math.ceil(length / 2)]:.2f} $')
+                
+                # Mode
+            mode = float(f'{max(set(stock_close_values), key=stock_close_values.count):.2f}')
+            print("Mode is:", mode, "$")
+            
+                # Standard deviation
+            if mean > 0.0:
+                standard_deviation_total = 0.0    
+                standard_deviation_count = 0
+                standard_deviation = 0.0
+                for stock_value in stock_close_values:
+                    standard_deviation_total += (stock_value - mean)**2
+                    standard_deviation_count += 1
+                print("Standard deviation:",f'{math.sqrt(standard_deviation_total/standard_deviation_count):.2f} $')
+            else:
+                print("No Mean available so can't calculate standard deviation")
+                #Correlation
         else:
             print("The stock does not exist, please try again")
     elif user_input == 2: # View any columns in the data
