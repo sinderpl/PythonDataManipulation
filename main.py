@@ -88,8 +88,12 @@ while keep_running:
             stock_close_values.sort()
             
                 # Min and Max
-            print("Minimnum value: ", min(stock_close_values), "$")
-            print("Maximum value: ",  max(stock_close_values), "$")
+            min_closing_price = min(stock_close_values)
+            max_closing_price = max(stock_close_values)
+            range_closing_price = max_closing_price - min_closing_price
+            print("Minimnum value: ", min_closing_price, "$")
+            print("Maximum value: ", max_closing_price, "$")
+            print("Range value: ",  range_closing_price, "$")
             
                 # Mean
             total = 0.0    
@@ -166,17 +170,22 @@ while keep_running:
             correlation = float(f'{total_closing_price_multiply_volume / math.sqrt(total_closing_price_square * total_volume_square):.2f}')
             print("The Correlation coefficient value is: ", correlation)
             
+            # Variance of entire population
+            population_variance = float(f'{total_closing_price_square / len(stock_values_unsorted):.2f}')
+            print("Population variance is: ", population_variance)
             # Save values to a text file
             try:
                 file_name = file_path_statistics +stock_choice+".txt"
                 with open(file_name, "w") as  new_file:
-                    new_file.write("Minimum value: " + str(min(stock_close_values)) +"\n")
-                    new_file.write("Maximum value: " + str(max(stock_close_values)) +"\n")
+                    new_file.write("Minimum value: " + str(min_closing_price) +"\n")
+                    new_file.write("Maximum value: " + str(max_closing_price) +"\n")
+                    new_file.write("Range value: " + str(range_closing_price) +"\n")
                     new_file.write("Mean: "+ str(mean_closing_price) + "\n")
                     new_file.write("Median: "+ str(median) + "\n")
                     new_file.write("Mode: " + str(mode) + "\n")
                     new_file.write("Standard Deviation: "+ str(standard_deviation) +"\n")
                     new_file.write("Correlation coefficient: "+ str(correlation) + "\n")
+                    new_file.write("Correlation coefficient: "+ str(population_variance) + "\n")
                 print("The data has been written to:", file_name)
             except FileExistsError:
                 pass

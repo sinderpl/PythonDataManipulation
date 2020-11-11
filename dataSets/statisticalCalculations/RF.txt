@@ -1,0 +1,8 @@
+Minimum value: 3.02
+Maximum value: 14.64
+Range value: 11.620000000000001
+Mean: 8.28
+Median: 0.0
+Mode: 9.59
+Standard Deviation: 0.0
+Correlation coefficient: -0.24
