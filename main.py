@@ -115,24 +115,26 @@ while keep_running:
             if length > 0 and length % 2 == 0:
                 median_upper  = stock_close_values[math.ceil(length / 2)]
                 median_lower = stock_close_values[math.ceil(length / 2) - 1]
-                print("Median is:", f'{(median_upper + median_lower)/2:.2f} $')
+                median = float(f'{(median_upper + median_lower)/2:.2f}')
+                print("Median is:", median ,'$')
             elif length > 0 and not length % 2 == 0:
-                median = f'{stock_close_values[math.ceil(length / 2)]:.2f} $'
-                print("Median is : ", median)
+                median = float(f'{stock_close_values[math.ceil(length / 2)]:.2f}') 
+                print("Median is : ", median, '$')
                 
                 # Mode
             mode = float(f'{max(set(stock_close_values), key=stock_close_values.count):.2f}')
             print("Mode is:", mode, "$")
             
+            standard_deviation_total = 0.0    
+            standard_deviation_count = 0
+            standard_deviation = 0.0
                 # Standard deviation
             if mean_closing_price > 0.0:
-                standard_deviation_total = 0.0    
-                standard_deviation_count = 0
-                standard_deviation = 0.0
                 for stock_value in stock_close_values:
                     standard_deviation_total += (stock_value - mean_closing_price)**2
                     standard_deviation_count += 1
-                print("Standard deviation:",f'{math.sqrt(standard_deviation_total/standard_deviation_count):.2f} $')
+                    standard_deviation = float(f'{math.sqrt(standard_deviation_total/standard_deviation_count):.2f}')
+                print("Standard deviation:", standard_deviation,'$')
             else:
                 print("No Mean available so can't calculate standard deviation")
                 
@@ -167,12 +169,31 @@ while keep_running:
                 total_closing_price_multiply_volume += close_multiply_volume
                 total_closing_price_square += close_price_minus_mean_square
                 total_volume_square += volume_minus_mean_square
-            correlation = float(f'{total_closing_price_multiply_volume / math.sqrt(total_closing_price_square * total_volume_square):.2f}')
-            print("The Correlation coefficient value is: ", correlation)
+            correlation = 0.0
+            try:
+                correlation = float(f'{total_closing_price_multiply_volume / math.sqrt(total_closing_price_square * total_volume_square):.2f}')
+                print("The Correlation coefficient value is: ", correlation)
+            except ZeroDivisionError:
+                print("The correlation could not be calculated as the data source is empty")
             
             # Variance of entire population
-            population_variance = float(f'{total_closing_price_square / len(stock_values_unsorted):.2f}')
-            print("Population variance is: ", population_variance)
+            population_variance = 0.0
+            try:
+                population_variance = float(f'{total_closing_price_square / len(stock_values_unsorted):.2f}')
+                print("Population variance is: ", population_variance)
+            except ZeroDivisionError:
+                print("The population variance could not be calculated as the data source is empty")
+            
+            # Skewness 
+            skew = 0.0
+            print(mean_closing_price)
+            print(median)
+            print(standard_deviation)
+            try:
+                skew = float(f'{((mean_closing_price - median) **3) / standard_deviation:.2f}')
+                print("Skewness value: ", skew)
+            except ZeroDivisionError:
+                print("The skew could not be calculated as the data source is empty")
             # Save values to a text file
             try:
                 file_name = file_path_statistics +stock_choice+".txt"
@@ -185,7 +206,8 @@ while keep_running:
                     new_file.write("Mode: " + str(mode) + "\n")
                     new_file.write("Standard Deviation: "+ str(standard_deviation) +"\n")
                     new_file.write("Correlation coefficient: "+ str(correlation) + "\n")
-                    new_file.write("Correlation coefficient: "+ str(population_variance) + "\n")
+                    new_file.write("Population variance: "+ str(population_variance) + "\n")
+                    new_file.write("Skew : "+ str(skew) + "\n")
                 print("The data has been written to:", file_name)
             except FileExistsError:
                 pass
