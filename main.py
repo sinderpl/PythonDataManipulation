@@ -213,11 +213,22 @@ while keep_running:
                     new_file.write("Correlation coefficient: "+ str(correlation) + "\n")
                     new_file.write("Population variance: "+ str(population_variance) + "\n")
                     new_file.write("Skew : "+ str(skew) + "\n")
+                    new_file.write("Kurtosis : "+ str(skew) + "\n")
                 print("The data has been written to:", file_name)
             except FileExistsError:
                 pass
         else:
-            print("The stock does not exist, please try again")
+            print("The stock does not exist, please try again.")
+            # Simple suggestion system
+            stocks_found = set()
+            for row in file_data[1][2]:
+                stock_ticker = row.split(",")[0]
+                if stock_choice in stock_ticker:
+                    stocks_found.add(stock_ticker)
+            if stocks_found:
+                print("Some stock suggestions you could have meant: ")
+                print(stocks_found)
+    
     elif user_input == 2: # View any columns in the data
         print("Select file to display available columnns:")
         for file_index in range(len(file_data)):
@@ -246,20 +257,7 @@ while keep_running:
                 print("Invalid file choice")
         except ValueError:
             print("Invalid input, please try again \n")
-    
-        
 
-
-
-
-# Simple  search code for later
-# stocks_found = set()
-# for row in file_data[1][2]:
-#     stock_ticker = row.split(",")[0]
-#     if "BA" in stock_ticker:
-#         stocks_found.add(stock_ticker)
-# print(stocks_found)
-    
 
     
 
