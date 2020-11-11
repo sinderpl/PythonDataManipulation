@@ -7,4 +7,4 @@ Mode: 125.89
 Standard Deviation: 189.06
 Correlation coefficient: -0.24
 Population variance: 35742.05
-Skew : 879.05
+Skew : 0.01

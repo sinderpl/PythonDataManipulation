@@ -186,14 +186,19 @@ while keep_running:
             
             # Skewness 
             skew = 0.0
-            print(mean_closing_price)
-            print(median)
-            print(standard_deviation)
             try:
-                skew = float(f'{((mean_closing_price - median) **3) / standard_deviation:.2f}')
+                skew = float(f'{((mean_closing_price - median) **3) / standard_deviation**3:.2f}')
                 print("Skewness value: ", skew)
             except ZeroDivisionError:
                 print("The skew could not be calculated as the data source is empty")
+                
+            # Kurtosis
+            kurtosis = 0.0
+            try:
+                skew = float(f'{((mean_closing_price - median) **4) / standard_deviation**4:.2f}')
+                print("Kurtosis value: ", skew)
+            except ZeroDivisionError:
+                print("The kurtosis could not be calculated as the data source is empty")
             # Save values to a text file
             try:
                 file_name = file_path_statistics +stock_choice+".txt"
