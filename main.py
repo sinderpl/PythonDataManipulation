@@ -153,10 +153,16 @@ while keep_running:
             total_closing_price_multiply_volume = 0.0
             total_closing_price_square = 0.0
             total_volume_square = 0.0
+            total_close_price_minus_mean = 0.0
+            skewness = 0.0
+            kurtosis = 0.0
             for index in range(len(stock_values_unsorted)):
                 # Calculations
                 #  A
                 close_price_minus_mean = stock_values_unsorted[index] - mean_closing_price
+                total_close_price_minus_mean += close_price_minus_mean
+                skewness += ((close_price_minus_mean) ** 3) / len(stock_values_unsorted)
+                kurtosis += ((close_price_minus_mean) ** 4) / len(stock_values_unsorted)
                 # B
                 volume_minus_mean = stock_volumes[index] - mean_volume
                 # A x B
@@ -169,6 +175,7 @@ while keep_running:
                 total_closing_price_multiply_volume += close_multiply_volume
                 total_closing_price_square += close_price_minus_mean_square
                 total_volume_square += volume_minus_mean_square
+
             correlation = 0.0
             try:
                 correlation = float(f'{total_closing_price_multiply_volume / math.sqrt(total_closing_price_square * total_volume_square):.2f}')
@@ -184,19 +191,17 @@ while keep_running:
             except ZeroDivisionError:
                 print("The population variance could not be calculated as the data source is empty")
             
-            # Skewness 
-            skew = 0.0
+            # Skewness
             try:
-                skew = float(f'{((mean_closing_price - median) **3) / standard_deviation**3:.2f}')
+                skew = float(f'{skewness / standard_deviation**3:.2f}')
                 print("Skewness value: ", skew)
             except ZeroDivisionError:
                 print("The skew could not be calculated as the data source is empty")
                 
             # Kurtosis
-            kurtosis = 0.0
             try:
-                skew = float(f'{((mean_closing_price - median) **4) / standard_deviation**4:.2f}')
-                print("Kurtosis value: ", skew)
+                kurtosis = float(f'{kurtosis / standard_deviation**4:.2f}')
+                print("Kurtosis value: ", kurtosis)
             except ZeroDivisionError:
                 print("The kurtosis could not be calculated as the data source is empty")
             # Save values to a text file
