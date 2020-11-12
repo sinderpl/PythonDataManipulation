@@ -16,6 +16,10 @@ updated_filenames = ("dataSets/updatedDataSet/securities.csv",
               "dataSets/updatedDataSet/fundamentals.csv",
               "dataSets/updatedDataSet/prices.csv"
              )
+
+"""
+    These are the columns we want to keep in the file, we want to drop the rest
+"""
 fundamentals_columns_needed = (
     "Ticker Symbol",
     "Period Ending",

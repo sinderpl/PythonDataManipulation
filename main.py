@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """
     A script that allows the user to analyse stock market data
+    
+    The user is given a output containg the stocks he can view the data for.
+    Statistical analysis is then performed on certain columns in the files.
+    Afterwards, the data is written to a text file for further reference
 @author: A00209408
 """
 import preProcessing
@@ -59,6 +63,7 @@ while keep_running:
         for row in range(len(file_data[0][2])):
             tickers.append(file_data[0][2][row].split(",")[0].replace('"',''))
         ticker_output = ""
+        # The output was very long so I have attempted to put it into a simple table
         for row in range(len(tickers)):
             ticker_output += "\t|" + tickers[row] + "|"
             if row % 8 == 0:
@@ -73,7 +78,8 @@ while keep_running:
             for row in file_data[2][2]:
                 try:
                     date, symbol, open_col, close, low, high, volume =  row.split(",")
-                    if symbol == stock_choice and close and volume: # We dont want null values in either field
+                    # We dont want null values in either field, if either is null we dont consider it
+                    if symbol == stock_choice and close and volume: 
                         stock_close_values.append(float(f'{float((close)):.2f}'))
                         stock_volumes_temp.append(volume.rstrip())
                 except ValueError:
@@ -154,6 +160,10 @@ while keep_running:
             total_closing_price_square = 0.0
             total_volume_square = 0.0
             total_close_price_minus_mean = 0.0
+            """
+                We use this piece of code to calculate the Pearson coefficient but also at the same time
+                piggyback on some of the calculations being done to improve performance
+            """
             skewness = 0.0
             kurtosis = 0.0
             for index in range(len(stock_values_unsorted)):
