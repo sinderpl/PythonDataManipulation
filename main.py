@@ -100,8 +100,6 @@ def main_menu_user_choice_1():
         standard_deviation = stat.calculate_standard_deviation(stock_close_values, mean_closing_price)
         print("Standard deviation:", standard_deviation,'$')
         
-            #Pearson's Correlation coefficient
-            
             # Mean of volume
         mean_volume =  stat.calculate_mean(stock_volumes)
         
