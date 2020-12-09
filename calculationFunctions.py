@@ -45,12 +45,15 @@ def calculate_median(data: []) -> float:
         Median of the values
     """
     length = len(data)
-    if length > 0 and length % 2 == 0:
-        median_upper  = data[math.ceil(length / 2)]
-        median_lower = data[math.ceil(length / 2) - 1]
-        return round((median_upper + median_lower)/2, 2)
-    elif length > 0 and not length % 2 == 0:
-        return round(data[math.ceil(length / 2)])
+    try:
+        if length > 0 and length % 2 == 0:
+            median_upper  = data[math.ceil(length / 2)]
+            median_lower = data[math.ceil(length / 2) - 1]
+            return round((median_upper + median_lower)/2, 2)
+        elif length > 0 and not length % 2 == 0:
+            return round(data[math.ceil(length / 2)])
+    except ZeroDivisionError:
+        return 0.0
     
 def calculate_mode(data: []) -> float:
     """
@@ -85,14 +88,69 @@ def calculate_standard_deviation(data: [], mean: float) -> float:
         standard deviation of the values
 
     """
-    standard_deviation_total = 0.0    
-    standard_deviation_count = 0
-    standard_deviation = 0.0
-    for value in data:
-        standard_deviation_total += (value - mean)**2
-        standard_deviation_count += 1
-    return round((math.sqrt(standard_deviation_total/standard_deviation_count)), 2)
+    try:
+        standard_deviation_total = 0.0    
+        standard_deviation_count = 0
+        for value in data:
+            standard_deviation_total += (value - mean)**2
+            standard_deviation_count += 1
+        return round((math.sqrt(standard_deviation_total/standard_deviation_count)), 2)
+    except ZeroDivisionError:
+        return 0.0
 
-def calculate_pearsons_coefficient():
+def calculate_correlation_skewness_kurtosis(data_first: [], mean_first: float, data_second: [], mean_second: float) -> []:
+    """
+    
+
+    Parameters
+    ----------
+    data_first : []
+        First data set to compare to
+    mean_first : float
+        Mean of the first data set
+    data_second : []
+        Second data set to correlate to first
+    mean_second : float
+        Mean of the second data set
+
+    Returns
+    -------
+    []
+        correlation value between two data sets, skewness, kurtosis and population variance of first data set
+
+    """
+    total_data_first_multiply_data_second = 0.0
+    total_data_first_square = 0.0
+    total_second_square = 0.0
+    total_data_first_minus_mean = 0.0
+    """
+        We use this piece of code to calculate the Pearson coefficient but also at the same time
+        piggyback on some of the calculations being done to improve performance
+    """
+    skewness = 0.0
+    kurtosis = 0.0
+    try:
+        for index in range(len(data_first)):
+            # Calculations
+            #  A
+            close_price_minus_mean = data_first[index] - mean_first
+            total_data_first_minus_mean += close_price_minus_mean
+            skewness += ((close_price_minus_mean) ** 3) / len(data_first)
+            kurtosis += ((close_price_minus_mean) ** 4) / len(data_first)
+            # B
+            volume_minus_mean = data_second[index] - mean_second
+            # A x B
+            close_multiply_volume = close_price_minus_mean * volume_minus_mean
+            #  A^2
+            close_price_minus_mean_square = close_price_minus_mean ** 2
+            #  B^2
+            volume_minus_mean_square = volume_minus_mean ** 2 
+            # Totals
+            total_data_first_multiply_data_second += close_multiply_volume
+            total_data_first_square += close_price_minus_mean_square
+            total_second_square += volume_minus_mean_square
+        return round((total_data_first_multiply_data_second / math.sqrt(total_data_first_square * total_second_square)), 2),skewness, kurtosis, total_data_first_square
+    except ZeroDivisionError:
+        return 0.0, 0.0, 0.0, 0.0
     
     

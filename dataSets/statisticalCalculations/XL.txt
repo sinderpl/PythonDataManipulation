@@ -1,6 +1,6 @@
 Minimum value: 15.97
 Maximum value: 40.41
-Range value: 24.439999999999998
+Range value: 24.44
 Mean: 28.24
 Median: 30.37
 Mode: 18.76

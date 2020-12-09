@@ -85,72 +85,32 @@ def main_menu_user_choice_1():
         print("Range value: ",  range_closing_price, "$")
         
             # Mean
-        mean = stat.calculate_mean(stock_close_values)
-        print("Mean is:", mean ,'$')
+        mean_closing_price = stat.calculate_mean(stock_close_values)
+        print("Mean is:", mean_closing_price ,'$')
         
             # Median
         median = stat.calculate_median(stock_close_values)
-        print("Median is:", mean ,'$')
+        print("Median is:", median ,'$')
             
             # Mode
         mode = stat.calculate_mode(stock_close_values)
         print("Mode is:", mode, "$")
         
             # Standard deviation
-        standard_deviation = stat.calculate_standard_deviation(stock_close_values, mean)
+        standard_deviation = stat.calculate_standard_deviation(stock_close_values, mean_closing_price)
         print("Standard deviation:", standard_deviation,'$')
         
             #Pearson's Correlation coefficient
             
             # Mean of volume
-        mean_volume = 0.0
-        total_volume = 0.0
-        count_volume = 0.0
-        for volume in stock_volumes:
-            total_volume += volume
-            count_volume += 1
-        mean_volume = float(f'{(total_volume / count_volume):.2f}')
+        mean_volume =  stat.calculate_mean(stock_volumes)
         
             # Correlation calculation
-        total_closing_price_multiply_volume = 0.0
-        total_closing_price_square = 0.0
-        total_volume_square = 0.0
-        total_close_price_minus_mean = 0.0
-        """
-            We use this piece of code to calculate the Pearson coefficient but also at the same time
-            piggyback on some of the calculations being done to improve performance
-        """
-        skewness = 0.0
-        kurtosis = 0.0
-        for index in range(len(stock_values_unsorted)):
-            # Calculations
-            #  A
-            close_price_minus_mean = stock_values_unsorted[index] - mean_closing_price
-            total_close_price_minus_mean += close_price_minus_mean
-            skewness += ((close_price_minus_mean) ** 3) / len(stock_values_unsorted)
-            kurtosis += ((close_price_minus_mean) ** 4) / len(stock_values_unsorted)
-            # B
-            volume_minus_mean = stock_volumes[index] - mean_volume
-            # A x B
-            close_multiply_volume = close_price_minus_mean * volume_minus_mean
-            #  A^2
-            close_price_minus_mean_square = close_price_minus_mean ** 2
-            #  B^2
-            volume_minus_mean_square = volume_minus_mean ** 2 
-            # Totals
-            total_closing_price_multiply_volume += close_multiply_volume
-            total_closing_price_square += close_price_minus_mean_square
-            total_volume_square += volume_minus_mean_square
+        correlation, skewness, kurtosis, total_closing_price_square = stat.calculate_correlation_skewness_kurtosis(stock_values_unsorted, mean_closing_price, stock_volumes, mean_volume)
     
-        correlation = 0.0
-        try:
-            correlation = float(f'{total_closing_price_multiply_volume / math.sqrt(total_closing_price_square * total_volume_square):.2f}')
-            print("The Correlation coefficient value is: ", correlation)
-        except ZeroDivisionError:
-            print("The correlation could not be calculated as the data source is empty")
+        print("The Correlation coefficient value is: ", correlation)
         
         # Variance of entire population
-        population_variance = 0.0
         try:
             population_variance = float(f'{total_closing_price_square / len(stock_values_unsorted):.2f}')
             print("Population variance is: ", population_variance)
