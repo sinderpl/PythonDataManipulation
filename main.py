@@ -75,10 +75,11 @@ def main_menu_user_choice_1():
                 stock_volumes.append(float(volume))
         stock_close_values.sort()
         
-            # Min and Max
+            # Min, Max, range
         min_closing_price = min(stock_close_values)
         max_closing_price = max(stock_close_values)
         range_closing_price = round(max_closing_price - min_closing_price,2)
+            
         print("Minimnum value: ", min_closing_price, "$")
         print("Maximum value: ", max_closing_price, "$")
         print("Range value: ",  range_closing_price, "$")
@@ -92,22 +93,13 @@ def main_menu_user_choice_1():
         print("Median is:", mean ,'$')
             
             # Mode
-        mode = float(f'{max(set(stock_close_values), key=stock_close_values.count):.2f}')
+        mode = stat.calculate_mode(stock_close_values)
         print("Mode is:", mode, "$")
         
-        standard_deviation_total = 0.0    
-        standard_deviation_count = 0
-        standard_deviation = 0.0
             # Standard deviation
-        if mean_closing_price > 0.0:
-            for stock_value in stock_close_values:
-                standard_deviation_total += (stock_value - mean_closing_price)**2
-                standard_deviation_count += 1
-                standard_deviation = float(f'{math.sqrt(standard_deviation_total/standard_deviation_count):.2f}')
-            print("Standard deviation:", standard_deviation,'$')
-        else:
-            print("No Mean available so can't calculate standard deviation")
-            
+        standard_deviation = stat.calculate_standard_deviation(stock_close_values, mean)
+        print("Standard deviation:", standard_deviation,'$')
+        
             #Pearson's Correlation coefficient
             
             # Mean of volume
@@ -119,7 +111,7 @@ def main_menu_user_choice_1():
             count_volume += 1
         mean_volume = float(f'{(total_volume / count_volume):.2f}')
         
-        # Correlation calculation
+            # Correlation calculation
         total_closing_price_multiply_volume = 0.0
         total_closing_price_square = 0.0
         total_volume_square = 0.0
