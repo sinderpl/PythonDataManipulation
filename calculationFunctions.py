@@ -185,7 +185,7 @@ def calculate_outliers(data: []) -> {}:
     Parameters
     ----------
     data [] : TYPE
-        DESCRIPTION.
+        data set from which we want to identify the outliers
 
     Returns
     -------

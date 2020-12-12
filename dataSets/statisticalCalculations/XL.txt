@@ -8,4 +8,8 @@ Standard Deviation: 6.9
 Correlation coefficient: -0.46
 Population variance: 47.54
 Skew : -0.11
-Kurtosis : -0.11
+Kurtosis : 1.53
+First Quartile : 21
+Third Quartile : 34
+Quartile Range : 13
+Outliers : set()

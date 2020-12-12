@@ -10,6 +10,7 @@
 """
 import preProcessing
 import calculationFunctions as stat
+import visualisationFunctions as visual
 import math
 
 # Program loop
@@ -128,6 +129,23 @@ def main_menu_user_choice_1():
             print("Kurtosis value: ", kurtosis)
         except ZeroDivisionError:
             print("The kurtosis could not be calculated as the data source is empty")
+        
+        # Quartiles
+        q1, q3 = stat.calculate_quartiles(stock_close_values)
+        print("First Quartile:", q1)
+        print("Third Quartile:", q3)
+        print("Quartile Range:", q3 - q1)
+        
+        #Outliers
+        outliers = stat.calculate_outliers(stock_close_values)
+        if(outliers):
+            print("Outliers: ", outliers)
+        else:
+            print("No outliers were detected within the data set")
+            
+        #Visualisations
+            
+            
         # Save values to a text file
         try:
             file_name = file_path_statistics +stock_choice+".txt"
@@ -142,7 +160,11 @@ def main_menu_user_choice_1():
                 new_file.write("Correlation coefficient: "+ str(correlation) + "\n")
                 new_file.write("Population variance: "+ str(population_variance) + "\n")
                 new_file.write("Skew : "+ str(skew) + "\n")
-                new_file.write("Kurtosis : "+ str(skew) + "\n")
+                new_file.write("Kurtosis : "+ str(kurtosis) + "\n")
+                new_file.write("First Quartile : "+ str(q1) + "\n")
+                new_file.write("Third Quartile : "+ str(q3) + "\n")
+                new_file.write("Quartile Range : "+ str(q3 - q1) + "\n")
+                new_file.write("Outliers : "+ str(outliers) + "\n")
             print("The data has been written to:", file_name)
         except FileExistsError:
             pass
