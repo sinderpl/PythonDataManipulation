@@ -44,6 +44,7 @@ def calculate_median(data: []) -> float:
     float
         Median of the values
     """
+    data.sort()
     length = len(data)
     try:
         if length > 0 and length % 2 == 0:
@@ -153,4 +154,19 @@ def calculate_correlation_skewness_kurtosis(data_first: [], mean_first: float, d
     except ZeroDivisionError:
         return 0.0, 0.0, 0.0, 0.0
     
-    
+def calculate_quartiles(data: []) -> []:
+    """
+    Calculates quartile ranges ofa data set
+
+    Parameters
+    ----------
+    data : []
+        Data set from which you want the quartile ranges
+
+    Returns
+    -------
+    []
+        tuple of Q1 and Q3 quartile ranges (Median is Q2 and last val is Q4)
+
+    """
+    data.sort()
