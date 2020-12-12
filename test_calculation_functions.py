@@ -80,3 +80,13 @@ def test_calculate_outliers():
     
     assert(stat.calculate_outliers(test_set) == {-12})
     
+def test_calculate_average():
+    """
+    Tests averagae calculations
+
+    Returns
+    -------
+    None.
+
+    """
+    assert(stat.calculate_average(test_set) == 15.0)    

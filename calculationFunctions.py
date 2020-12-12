@@ -207,4 +207,25 @@ def calculate_outliers(data: []) -> {}:
             result.add(value)
     return result
     
+def calculate_average(data: []) -> float:
+    """
+    Calculates the average of a set of values
+
+    Parameters
+    ----------
+    data : []
+        Find average from this data set
+
+    Returns
+    -------
+    float
+        Average value
+
+    """
     
+    average = 0.0
+    
+    for value in data:
+        average += value
+    average = average / len(data)
+    return round(average, 0)

@@ -12,6 +12,7 @@ import preProcessing
 import calculationFunctions as stat
 import visualisationFunctions as visual
 import math
+import matplotlib.pyplot as plt
 
 # Program loop
 keep_running = True
@@ -144,7 +145,17 @@ def main_menu_user_choice_1():
             print("No outliers were detected within the data set")
             
         #Visualisations
+        fig, ax = plt.subplots()
+        
+        # Boxplot
+        closing_label =  "Stock " + stock_choice + " closing values "
+        boxplot = visual.apply_boxplot(ax, stock_close_values, closing_label , "Stock price");
+        
+        
+        plt.show()
             
+        #Save visualisations
+        fig.savefig(file_path_statistics +stock_choice+".png", bbox_inches='tight')
             
         # Save values to a text file
         try:
