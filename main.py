@@ -36,7 +36,7 @@ file_data = (# filename[0] #Columns[1] #Rows[2]
 # User menu choices
 def main_menu_user_choice_1():
     """
-    Main user menU choice, displays the
+    Main user menu choice, displays the
     data specific to a company
     Returns
     -------
@@ -59,13 +59,17 @@ def main_menu_user_choice_1():
         stock_close_values = list()
         stock_volumes = list()
         stock_volumes_temp = list()
+        stock_dates = {}
+        
         for row in file_data[2][2]:
             try:
                 date, symbol, open_col, close, low, high, volume =  row.split(",")
                 # We dont want null values in either field, if either is null we dont consider it
                 if symbol == stock_choice and close and volume: 
-                    stock_close_values.append(float(f'{float((close)):.2f}'))
+                    closing_price = float(f'{float((close)):.2f}')
+                    stock_close_values.append(closing_price)
                     stock_volumes_temp.append(volume.rstrip())
+                    stock_dates[date[:10]]  = {"closing_price" : closing_price, "volume" : volume.rstrip()}
             except ValueError:
                 pass # if we are missing a value we skip it
         #Print out statistics

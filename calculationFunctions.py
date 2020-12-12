@@ -224,7 +224,6 @@ def calculate_average(data: []) -> float:
     """
     
     average = 0.0
-    
     for value in data:
         average += value
     average = average / len(data)
