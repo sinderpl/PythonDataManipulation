@@ -170,3 +170,41 @@ def calculate_quartiles(data: []) -> []:
 
     """
     data.sort()
+    lower_half = data[:len(data) // 2]
+    upper_half = data[len(data) // 2 :]
+    return calculate_median(lower_half), calculate_median(upper_half)
+
+def calculate_outliers(data: []) -> {}:
+    """
+    Calculates the outliers and their occurence in a data set.
+    This is based on a calculation of the 1.5 deviations from the
+    Inter Quartile range
+    Inter Quartile range is calculate by taking away Q3 - Q1
+
+    Linear running complexity big O(n), could be improved further
+    Parameters
+    ----------
+    data [] : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    []
+        A data set possibly containing outlier values
+        
+    """
+    data.sort()
+    q1, q3 = calculate_quartiles(data)
+    interquartile_range = (q3 - q1) * 1.5
+    
+    upper_limit = q3 + interquartile_range
+    lower_limit = q1 - interquartile_range
+    
+    result = set()
+    
+    for value in data:
+        if value > upper_limit or value < lower_limit:
+            result.add(value)
+    return result
+    
+    

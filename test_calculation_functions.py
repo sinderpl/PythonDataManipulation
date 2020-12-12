@@ -52,3 +52,31 @@ def test_calculate_standard_deviation():
 
     """
     assert(stat.calculate_standard_deviation(test_set, stat.calculate_mean(test_set))) == 8.61
+    
+def test_calculate_quartiles():
+    """
+    
+    Tests the quartile calculations from the stat module.
+
+    Returns
+    -------
+    None.
+
+    """
+    
+    q1, q3 = stat.calculate_quartiles(test_set)
+    assert(q1 == 13)
+    assert(q3 == 22.5)
+    
+def test_calculate_outliers():
+    """
+    Tests the outlier identification from the stat module
+
+    Returns
+    -------
+    None.
+
+    """
+    
+    assert(stat.calculate_outliers(test_set) == {-12})
+    
