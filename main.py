@@ -31,7 +31,6 @@ file_data = (# filename[0] #Columns[1] #Rows[2]
               ("prices", list(), list())
             )
 
-
         
 # User menu choices
 def main_menu_user_choice_1():
@@ -148,18 +147,28 @@ def main_menu_user_choice_1():
         else:
             print("No outliers were detected within the data set")
             
-        #Visualisations
-        fig, ax = plt.subplots()
-        
+            #Visualisations
         # Boxplot
         closing_label =  "Stock " + stock_choice + " closing values "
+        fig, ax = plt.subplots()
         boxplot = visual.apply_boxplot(ax, stock_close_values, closing_label , "Stock price");
+        fig.savefig(file_path_statistics +stock_choice + "_boxplot" + ".png", bbox_inches='tight')
+        plt.show()
         
+        # Date plot
+        fig, ax = plt.subplots()
+        visualize_stock_movements = visual.visualise_by_time(ax, list(stock_dates.keys()) ,list(v['closing_price'] for v in stock_dates.values()), closing_label , "Stock price");
+        fig.savefig(file_path_statistics +stock_choice + "_date_stock_movement" + ".png", bbox_inches='tight')
+        plt.show()
         
+        # DAte and correlation plot
+        fig, ax = plt.subplots()
+        prices = list(v['closing_price'] for v in stock_dates.values())
+        volume = list(v['volume'] for v in stock_dates.values())
+        visualise_scatter = visual.visualise_scatter_plot_correlation(ax, prices , volume, "Volume vs Price" , "Stock price", "Volume");
+        fig.savefig(file_path_statistics +stock_choice + "_date_stock_volume_movement" + ".png", bbox_inches='tight')
         plt.show()
             
-        #Save visualisations
-        fig.savefig(file_path_statistics +stock_choice+".png", bbox_inches='tight')
             
         # Save values to a text file
         try:
