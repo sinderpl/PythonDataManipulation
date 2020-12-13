@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module calculationFunctions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>calculationFunctions</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Calann%5Cdesktop%5Cmaster%202020%5Capplied%20scripting1%5Cpythondatamanipulation%5Ccalculationfunctions.py">c:\users\alann\desktop\master 2020\applied scripting1\pythondatamanipulation\calculationfunctions.py</a></font></td></tr></table>
+    <p><tt>This&nbsp;file&nbsp;contains&nbsp;any&nbsp;statistical&nbsp;calculation&nbsp;methods<br>
+&nbsp;<br>
+&nbsp;<br>
+@author:&nbsp;A00209408</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="math.html">math</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-calculate_average"><strong>calculate_average</strong></a>(data: []) -&gt; float</dt><dd><tt>Calculates&nbsp;the&nbsp;average&nbsp;of&nbsp;a&nbsp;set&nbsp;of&nbsp;values<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+data&nbsp;:&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Find&nbsp;average&nbsp;from&nbsp;this&nbsp;data&nbsp;set<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Average&nbsp;value</tt></dd></dl>
+ <dl><dt><a name="-calculate_correlation_skewness_kurtosis"><strong>calculate_correlation_skewness_kurtosis</strong></a>(data_first: [], mean_first: float, data_second: [], mean_second: float) -&gt; []</dt><dd><tt>Parameters<br>
+----------<br>
+data_first&nbsp;:&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;First&nbsp;data&nbsp;set&nbsp;to&nbsp;compare&nbsp;to<br>
+mean_first&nbsp;:&nbsp;float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Mean&nbsp;of&nbsp;the&nbsp;first&nbsp;data&nbsp;set<br>
+data_second&nbsp;:&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Second&nbsp;data&nbsp;set&nbsp;to&nbsp;correlate&nbsp;to&nbsp;first<br>
+mean_second&nbsp;:&nbsp;float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Mean&nbsp;of&nbsp;the&nbsp;second&nbsp;data&nbsp;set<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;correlation&nbsp;value&nbsp;between&nbsp;two&nbsp;data&nbsp;sets,&nbsp;skewness,&nbsp;kurtosis&nbsp;and&nbsp;population&nbsp;variance&nbsp;of&nbsp;first&nbsp;data&nbsp;set</tt></dd></dl>
+ <dl><dt><a name="-calculate_mean"><strong>calculate_mean</strong></a>(data: []) -&gt; float</dt><dd><tt>Calculates&nbsp;the&nbsp;mean&nbsp;based&nbsp;on&nbsp;the&nbsp;input&nbsp;array<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+data&nbsp;:&nbsp;[]&nbsp;data&nbsp;values&nbsp;to&nbsp;perform&nbsp;mean<br>
+analysis&nbsp;on<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;mean&nbsp;of&nbsp;the&nbsp;values</tt></dd></dl>
+ <dl><dt><a name="-calculate_median"><strong>calculate_median</strong></a>(data: []) -&gt; float</dt><dd><tt>Calculates&nbsp;the&nbsp;median&nbsp;based&nbsp;on&nbsp;the&nbsp;input&nbsp;array<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+data&nbsp;:&nbsp;[]&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;values&nbsp;to&nbsp;perform&nbsp;median&nbsp;analysis&nbsp;on<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Median&nbsp;of&nbsp;the&nbsp;values</tt></dd></dl>
+ <dl><dt><a name="-calculate_mode"><strong>calculate_mode</strong></a>(data: []) -&gt; float</dt><dd><tt>Calculates&nbsp;the&nbsp;mode&nbsp;based&nbsp;on&nbsp;the&nbsp;input&nbsp;array<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+data&nbsp;:&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;values&nbsp;to&nbsp;perform&nbsp;mode&nbsp;analysis&nbsp;on<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Mode&nbsp;of&nbsp;the&nbsp;values</tt></dd></dl>
+ <dl><dt><a name="-calculate_outliers"><strong>calculate_outliers</strong></a>(data: []) -&gt; {}</dt><dd><tt>Calculates&nbsp;the&nbsp;outliers&nbsp;and&nbsp;their&nbsp;occurence&nbsp;in&nbsp;a&nbsp;data&nbsp;set.<br>
+This&nbsp;is&nbsp;based&nbsp;on&nbsp;a&nbsp;calculation&nbsp;of&nbsp;the&nbsp;1.5&nbsp;deviations&nbsp;from&nbsp;the<br>
+Inter&nbsp;Quartile&nbsp;range<br>
+Inter&nbsp;Quartile&nbsp;range&nbsp;is&nbsp;calculate&nbsp;by&nbsp;taking&nbsp;away&nbsp;Q3&nbsp;-&nbsp;Q1<br>
+&nbsp;<br>
+Linear&nbsp;running&nbsp;complexity&nbsp;big&nbsp;O(n),&nbsp;could&nbsp;be&nbsp;improved&nbsp;further<br>
+Parameters<br>
+----------<br>
+data&nbsp;[]&nbsp;:&nbsp;TYPE<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;set&nbsp;from&nbsp;which&nbsp;we&nbsp;want&nbsp;to&nbsp;identify&nbsp;the&nbsp;outliers<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;data&nbsp;set&nbsp;possibly&nbsp;containing&nbsp;outlier&nbsp;values</tt></dd></dl>
+ <dl><dt><a name="-calculate_quartiles"><strong>calculate_quartiles</strong></a>(data: []) -&gt; []</dt><dd><tt>Calculates&nbsp;quartile&nbsp;ranges&nbsp;ofa&nbsp;data&nbsp;set<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+data&nbsp;:&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Data&nbsp;set&nbsp;from&nbsp;which&nbsp;you&nbsp;want&nbsp;the&nbsp;quartile&nbsp;ranges<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tuple&nbsp;of&nbsp;Q1&nbsp;and&nbsp;Q3&nbsp;quartile&nbsp;ranges&nbsp;(Median&nbsp;is&nbsp;Q2&nbsp;and&nbsp;last&nbsp;val&nbsp;is&nbsp;Q4)</tt></dd></dl>
+ <dl><dt><a name="-calculate_standard_deviation"><strong>calculate_standard_deviation</strong></a>(data: [], mean: float) -&gt; float</dt><dd><tt>Calculates&nbsp;the&nbsp;standard&nbsp;deviation&nbsp;based&nbsp;on&nbsp;the&nbsp;input&nbsp;array<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+data&nbsp;:&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;values&nbsp;to&nbsp;perform&nbsp;standard&nbsp;deviation&nbsp;analysis&nbsp;on<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;standard&nbsp;deviation&nbsp;of&nbsp;the&nbsp;values</tt></dd></dl>
+</td></tr></table>
+</body></html>

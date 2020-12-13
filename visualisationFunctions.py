@@ -6,7 +6,6 @@ Utilises the power of matplotlib / seaborn to visualise data sets
 @author: A00209408
 """
 
-import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import calculationFunctions as stat
@@ -84,7 +83,7 @@ def visualise_by_time(ax: plt.Axes, data_time: list(), data_values: list(), titl
     ax.set_title(title)
     
     # Set up dates for X axis
-    dates = matplotlib.dates.datestr2num(data_time)
+    dates = mdates.datestr2num(data_time)
     months = mdates.MonthLocator()
     ax.xaxis.set_minor_locator(months)
     ax.set_xlabel("Timeline")
@@ -123,5 +122,7 @@ def visualise_scatter_plot_correlation(ax: plt.Axes, data_values_x: list(), data
     ax.set_title(title)
     ax.set_xlabel(x_label)
     ax.set_ylabel(y_label)
+    
+    ax.scatter(data_values_x, data_values_y, marker =".")
     
     return ax
